@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "password": "password",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "user1",
+      "email": "user1@example.com",
+      "password": "password",
+      "role": "user"
+    }
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "Vue.js入門",
+      "content": "Vue.jsはシンプルで強力なフレームワークです。",
+      "authorId": 1,
+      "createdAt": "2025-01-07T12:00:00Z",
+      "updatedAt": "2025-01-07T12:00:00Z",
+      "tags": ["Vue", "JavaScript"]
+    },
+    {
+      "id": 2,
+      "title": "状態管理の基礎",
+      "content": "Piniaを使えば状態管理が楽になります。",
+      "authorId": 1,
+      "createdAt": "2025-01-08T10:00:00Z",
+      "updatedAt": "2025-01-08T10:00:00Z",
+      "tags": ["State Management", "Pinia"]
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "articleId": 1,
+      "authorId": 2,
+      "content": "この記事はとても参考になりました！",
+      "createdAt": "2025-01-07T15:30:00Z"
+    },
+    {
+      "id": 2,
+      "articleId": 2,
+      "authorId": 2,
+      "content": "もっと詳しい解説が欲しいです。",
+      "createdAt": "2025-01-08T12:00:00Z"
+    }
+  ]
+}
