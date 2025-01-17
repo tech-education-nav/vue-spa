@@ -34,21 +34,5 @@
       "updatedAt": "2025-01-08T10:00:00Z",
       "tags": ["State Management", "Pinia"]
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "articleId": 1,
-      "authorId": 2,
-      "content": "この記事はとても参考になりました！",
-      "createdAt": "2025-01-07T15:30:00Z"
-    },
-    {
-      "id": 2,
-      "articleId": 2,
-      "authorId": 2,
-      "content": "もっと詳しい解説が欲しいです。",
-      "createdAt": "2025-01-08T12:00:00Z"
-    }
   ]
 }
