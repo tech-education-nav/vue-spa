@@ -53,7 +53,11 @@ const deleteArticle = (id) => {
       <tbody>
         <tr v-for="article in articles" :key="article.id">
           <td>{{ article.id }}</td>
-          <td>{{ article.title }}</td>
+          <td>
+            <router-link :to="`/articles/${article.id}`">
+              {{ article.title }}
+            </router-link>
+          </td>
           <td>{{ article.createdAt }}</td>
           <td>{{ article.author }}</td>
           <td>
@@ -123,10 +127,6 @@ h1 {
 .article-table th {
   background: #2c3e50;
   color: white;
-}
-
-.article-table tr:hover {
-  background: #ecf0f1;
 }
 
 /* 編集・削除ボタン */
