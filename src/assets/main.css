@@ -164,6 +164,7 @@ h1 {
 .form-group textarea {
   min-height: 100px;
   resize: none;
+  font: inherit;
 }
 
 /* テーブルスタイル */
