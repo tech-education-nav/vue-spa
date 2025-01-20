@@ -98,8 +98,6 @@ export const useArticle = () => {
    * @param {number} id 記事ID
    */
   const updateArticle = async (id) => {
-    console.log(id)
-
     isLoading.value = true
     try {
       const updatedArticle = {
