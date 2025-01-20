@@ -4,6 +4,23 @@
 }
 body {
   background-color: #f8f5f5;
+  padding: 0;
+  margin: 0;
+}
+
+/* 共通ヘッダー */
+.app-header {
+  background: #2c3e50;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 /* コンテンツのコンテナ */
 .container {
@@ -16,7 +33,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ヘッダースタイル */
+/* 記事ヘッダースタイル */
 h1 {
   font-size: 32px;
   color: #2c3e50;
@@ -78,6 +95,23 @@ h1 {
 .button[disabled] {
   background: #ccc;
   pointer-events: none;
+}
+
+/* テキストボタンスタイル（背景なし） */
+.text-button {
+  background: none;
+  color: white;
+}
+
+/* アライン */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
 }
 
 /* フォームの共通スタイル */

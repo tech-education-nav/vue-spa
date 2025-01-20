@@ -15,7 +15,7 @@ const isSubmitDisabled = computed(() => {
 })
 
 // 記事の投稿処理
-const submitArticle = () => {
+const handleSubmit = () => {
   if (isSubmitDisabled.value) return
 
   const newArticle = {
@@ -34,17 +34,17 @@ const submitArticle = () => {
 }
 
 // 記事一覧に戻る
-const goToArticles = () => {
+const handleBackList = () => {
   router.push('/articles')
 }
 </script>
 
 <template>
   <div class="container">
-    <button class="button button-secondary" @click="goToArticles">← 記事一覧に戻る</button>
+    <button class="button button-secondary" @click="handleBackList">← 記事一覧に戻る</button>
     <h1>記事の新規作成</h1>
 
-    <form @submit.prevent="submitArticle">
+    <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="title">タイトル</label>
         <input id="title" v-model="title" type="text" required />

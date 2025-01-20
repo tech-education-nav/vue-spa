@@ -38,14 +38,14 @@ onMounted(() => {
 })
 
 // 一覧に戻る処理
-const goBackToList = () => {
+const handleBackList = () => {
   router.push('/articles')
 }
 </script>
 
 <template>
   <div class="container" v-if="article">
-    <button class="button button-secondary" @click="goBackToList">← 記事一覧に戻る</button>
+    <button class="button button-secondary" @click="handleBackList">← 記事一覧に戻る</button>
     <h1>{{ article.title }}</h1>
     <p class="form-group">
       <strong>作成者:</strong> {{ article.author }} | <strong>作成日:</strong>

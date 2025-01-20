@@ -54,14 +54,14 @@ const saveArticle = () => {
 }
 
 // 一覧に戻る
-const goBackToList = () => {
+const handleBackList = () => {
   router.push('/articles')
 }
 </script>
 
 <template>
   <div class="container">
-    <button class="button button-secondary" @click="goBackToList">← 記事一覧に戻る</button>
+    <button class="button button-secondary" @click="handleBackList">← 記事一覧に戻る</button>
     <h1>記事編集</h1>
     <form @submit.prevent="saveArticle">
       <div class="form-group">

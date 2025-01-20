@@ -16,17 +16,17 @@ onMounted(() => {
 })
 
 // 記事の新規作成画面へ遷移
-const goToNewArticle = () => {
+const handleCreate = () => {
   router.push('/articles/new')
 }
 
 // 記事の編集画面へ遷移
-const goToEditArticle = (id) => {
+const handleEdit = (id) => {
   router.push(`/articles/${id}/edit`)
 }
 
 // 記事の削除
-const deleteArticle = (id) => {
+const handleDelete = (id) => {
   if (confirm('本当に削除しますか？')) {
     articles.value = articles.value.filter((article) => article.id !== id)
   }
@@ -36,8 +36,8 @@ const deleteArticle = (id) => {
 <template>
   <div class="container">
     <h1>記事一覧</h1>
-    <div class="actions">
-      <button class="button button-primary" @click="goToNewArticle">+ 新規作成</button>
+    <div class="text-right">
+      <button class="button button-primary" @click="handleCreate">+ 新規作成</button>
     </div>
     <template v-if="articles.length > 0">
       <table class="table">
@@ -59,10 +59,8 @@ const deleteArticle = (id) => {
             <td>{{ article.createdAt }}</td>
             <td>{{ article.author }}</td>
             <td>
-              <button class="button button-success" @click="goToEditArticle(article.id)">
-                編集
-              </button>
-              <button class="button button-danger" @click="deleteArticle(article.id)">削除</button>
+              <button class="button button-success" @click="handleEdit(article.id)">編集</button>
+              <button class="button button-danger" @click="handleDelete(article.id)">削除</button>
             </td>
           </tr>
         </tbody>

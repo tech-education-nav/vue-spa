@@ -10,9 +10,8 @@ const goToArticles = () => {
 
 <template>
   <div class="home-container">
-    <h1>管理ダッシュボード</h1>
+    <h1>管理画面</h1>
     <p>以下のメニューから管理機能を選択してください。</p>
-
     <div class="menu">
       <button class="menu-item" @click="goToArticles">記事管理</button>
       <button class="menu-item" disabled>ユーザー管理（未実装）</button>
