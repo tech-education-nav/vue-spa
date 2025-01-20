@@ -1,34 +1,74 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import ConfirmModal from '@/components/common/ConfirmModal.vue'
+import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
-
-// ダミーデータ（本番ではAPI経由で取得）
-const articles = ref([])
 
 const router = useRouter()
 
-// 記事の一覧データを取得（仮のデータ）
-onMounted(() => {
-  articles.value = [
-    { id: 1, title: 'Vue.js入門', createdAt: '2025-01-10', author: '管理者' },
-    { id: 2, title: '状態管理の基礎', createdAt: '2025-01-12', author: 'ユーザー1' },
-  ]
-})
+const articles = ref([])
+// 削除処理関連
+const isModalVisible = ref(false)
+const deletableArticleId = ref(null)
 
-// 記事の新規作成画面へ遷移
+/**
+ * 記事一覧データを取得する
+ */
+const fetchArticles = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/articles')
+    if (!response.ok) {
+      throw new Error(`データの取得に失敗しました。ステータスコード: ${response.status}`)
+    }
+    articles.value = await response.json()
+  } catch (error) {
+    console.error('記事一覧の取得エラー:', error)
+    alert('記事一覧の取得に失敗しました')
+  }
+}
+
+// コンポーネントがマウントされたら記事一覧を取得
+onBeforeMount(fetchArticles)
+
+/**
+ * 記事の新規作成画面へ遷移する
+ */
 const handleCreate = () => {
   router.push('/articles/new')
 }
 
-// 記事の編集画面へ遷移
+/**
+ * 記事の編集画面へ遷移する
+ * @param {number} id 記事ID
+ */
 const handleEdit = (id) => {
   router.push(`/articles/${id}/edit`)
 }
 
-// 記事の削除
-const handleDelete = (id) => {
-  if (confirm('本当に削除しますか？')) {
-    articles.value = articles.value.filter((article) => article.id !== id)
+/**
+ * 削除確認モーダルを開く
+ * @param {number} id 記事ID
+ */
+const openDeleteModal = (id) => {
+  deletableArticleId.value = id
+  isModalVisible.value = true
+}
+
+/**
+ * 削除実行
+ */
+const deleteArticle = async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/articles/${deletableArticleId.value}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      throw new Error(`削除に失敗しました。ステータスコード: ${response.status}`)
+    }
+    articles.value = articles.value.filter((article) => article.id !== deletableArticleId.value)
+    deletableArticleId.value = null
+  } catch (error) {
+    console.error('記事削除エラー:', error)
+    alert('記事の削除に失敗しました')
   }
 }
 </script>
@@ -60,7 +100,9 @@ const handleDelete = (id) => {
             <td>{{ article.author }}</td>
             <td>
               <button class="button button-success" @click="handleEdit(article.id)">編集</button>
-              <button class="button button-danger" @click="handleDelete(article.id)">削除</button>
+              <button class="button button-danger" @click="openDeleteModal(article.id)">
+                削除
+              </button>
             </td>
           </tr>
         </tbody>
@@ -70,4 +112,13 @@ const handleDelete = (id) => {
       <p>記事はありません。</p>
     </template>
   </div>
+  <!-- 削除確認モーダル -->
+  <ConfirmModal
+    :isVisible="isModalVisible"
+    title="記事削除"
+    message="本当にこの記事を削除しますか？"
+    confirmText="削除する"
+    @execute="deleteArticle"
+    @close="isModalVisible = false"
+  />
 </template>

@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "email": "admin@example.com",
       "password": "s3FrTCqW",
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "user1",
       "email": "user1@example.com",
       "password": "b3EJMmgF",
@@ -17,22 +17,76 @@
   ],
   "articles": [
     {
-      "id": 1,
-      "title": "Vue.js入門",
-      "content": "Vue.jsはシンプルで強力なフレームワークです。",
+      "id": "1",
+      "title": "Vue.js入門ガイド",
+      "content": "Vue.jsは、ユーザーインターフェースを構築するための進化したフレームワークです。コンポーネントベースの開発が可能で、柔軟かつ拡張性の高い設計になっています。本記事では、Vueの基本的な使い方からコンポーネントの活用までを解説します。",
       "author": "管理者",
-      "createdAt": "2025-01-07T12:00:00Z",
+      "createdAt": "2025-01-05T09:00:00Z",
       "updatedAt": "2025-01-07T12:00:00Z",
-      "tags": ["Vue", "JavaScript"]
+      "tags": ["Vue.js", "JavaScript", "Frontend"]
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "状態管理の基礎",
-      "content": "Piniaを使えば状態管理が楽になります。",
-      "author": "ユーザー1",
+      "content": "Piniaを使えば状態管理が楽になります。従来のVuexに比べてシンプルなAPIを提供し、より直感的にデータフローを管理できます。グローバルストアの管理方法について詳しく見ていきましょう。",
+      "author": "管理者",
       "createdAt": "2025-01-08T10:00:00Z",
       "updatedAt": "2025-01-08T10:00:00Z",
       "tags": ["State Management", "Pinia"]
+    },
+    {
+      "id": "3",
+      "title": "Vue Routerの使い方",
+      "content": "Vue Routerを使うことで、シングルページアプリケーションのルーティング管理が容易になります。本記事では、基本的なルート設定から動的ルート、ネストルート、ナビゲーションガードの設定方法を解説します。",
+      "author": "管理者",
+      "createdAt": "2025-02-10T15:30:00Z",
+      "updatedAt": "2025-02-10T16:00:00Z",
+      "tags": ["Vue.js", "Router", "SPA"]
+    },
+    {
+      "id": "4",
+      "title": "コンポーネント設計のベストプラクティス",
+      "content": "Vue.jsのコンポーネント設計において、再利用性や保守性を高めるための設計手法を紹介します。プロップスの管理、イベントの取り扱い、スロットの活用方法を学びましょう。",
+      "author": "管理者",
+      "createdAt": "2025-03-01T14:00:00Z",
+      "updatedAt": "2025-03-01T14:30:00Z",
+      "tags": ["Vue.js", "Components", "Best Practices"]
+    },
+    {
+      "id": "5",
+      "title": "Vue.jsのライフサイクルフック",
+      "content": "Vueコンポーネントには、作成から破棄までの各フェーズを制御するためのライフサイクルフックが用意されています。onMountedやonUnmountedの活用例を紹介します。",
+      "author": "管理者",
+      "createdAt": "2025-04-12T11:45:00Z",
+      "updatedAt": "2025-04-12T12:15:00Z",
+      "tags": ["Vue.js", "Lifecycle", "Hooks"]
+    },
+    {
+      "id": "6",
+      "title": "Vue 3のComposition APIを学ぶ",
+      "content": "Composition APIは、Vue 3の主要な機能の1つであり、コードの可読性と再利用性を向上させます。本記事では、ref、reactive、computedの使い方を解説します。",
+      "author": "管理者",
+      "createdAt": "2025-05-06T09:00:00Z",
+      "updatedAt": "2025-05-06T09:45:00Z",
+      "tags": ["Vue.js", "Composition API", "Reactivity"]
+    },
+    {
+      "id": "7",
+      "title": "Vue.jsとREST APIの連携",
+      "content": "VueアプリケーションとREST APIを連携することで、動的なデータの取得や送信が可能になります。fetch APIやaxiosを用いた実装例を紹介します。",
+      "author": "管理者",
+      "createdAt": "2025-06-15T18:20:00Z",
+      "updatedAt": "2025-06-15T19:00:00Z",
+      "tags": ["Vue.js", "API", "HTTP"]
+    },
+    {
+      "id": "8",
+      "title": "Vue.jsのテスト戦略",
+      "content": "Vueコンポーネントの単体テストとE2Eテストの手法を解説します。Vitestを使用したテスト実装の基本について学びます。",
+      "author": "管理者",
+      "createdAt": "2025-07-20T14:10:00Z",
+      "updatedAt": "2025-07-20T14:45:00Z",
+      "tags": ["Vue.js", "Testing", "Vitest"]
     }
   ]
 }
