@@ -1,4 +1,5 @@
 <script setup>
+import ArticleForm from '@/components/articles/ArticleForm.vue'
 import { useArticle } from '@/composables/useArticle'
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -7,7 +8,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const articleId = computed(() => route.params.id)
 // 記事データの状態
-const { article, isLoading, error, fetchArticle, updateArticle, handleBackList } = useArticle()
+const { article, isLoading, error, isSubmitDisabled, fetchArticle, updateArticle, handleBackList } =
+  useArticle()
 
 // コンポーネントのマウント時に記事データを取得
 onMounted(() => {
@@ -29,29 +31,11 @@ onMounted(() => {
     </template>
 
     <template v-else>
-      <form @submit.prevent="updateArticle(articleId)">
-        <div class="form-group">
-          <label for="title">タイトル</label>
-          <input id="title" v-model="article.title" type="text" required />
-        </div>
-
-        <div class="form-group">
-          <label for="content">本文</label>
-          <textarea id="content" v-model="article.content" required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="author">作成者</label>
-          <input id="author" v-model="article.author" type="text" required />
-        </div>
-
-        <div class="form-group">
-          <label for="tags">タグ（カンマ区切り）</label>
-          <input id="tags" v-model="article.tags" type="text" />
-        </div>
-
-        <button type="submit" class="button button-primary">保存</button>
-      </form>
+      <ArticleForm
+        v-model:article="article"
+        @submit="updateArticle(article.id)"
+        :isDisabled="isSubmitDisabled"
+      />
     </template>
   </div>
 </template>

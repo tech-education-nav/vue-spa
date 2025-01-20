@@ -101,35 +101,11 @@
       "createdAt": "2025-06-15T18:20:00Z",
       "updatedAt": "2025-06-15T19:00:00Z",
       "tags": [
-        "Vue.js",
-        "API",
-        "HTTP"
+        "aaaaa",
+        "bbbbb",
+        "ccc",
+        "vvvvv"
       ]
-    },
-    {
-      "id": "8",
-      "title": "Vue.jsのテスト戦略",
-      "content": "Vueコンポーネントの単体テストとE2Eテストの手法を解説します。Vitestを使用したテスト実装の基本について学びます。",
-      "author": "管理者",
-      "createdAt": "2025-07-20T14:10:00Z",
-      "updatedAt": "2025-07-20T14:45:00Z",
-      "tags": [
-        "Vue.js",
-        "Testing",
-        "Vitest"
-      ]
-    },
-    {
-      "id": "c2b4",
-      "title": "更新：新規作成テスト",
-      "content": "更新：新規作成テスト",
-      "author": "更新：新規作成テスト",
-      "tags": [
-        "更新：新規作成テスト",
-        "あああああ"
-      ],
-      "createdAt": "2025-01-20T06:00:38.488Z",
-      "updatedAt": "2025-01-20T06:00:38.488Z"
     }
   ]
 }
