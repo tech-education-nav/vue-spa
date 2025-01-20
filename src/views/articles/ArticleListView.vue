@@ -1,30 +1,15 @@
 <script setup>
 import ConfirmModal from '@/components/common/ConfirmModal.vue'
+import { useArticle } from '@/composables/useArticle'
 import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const { articles, fetchArticles, deleteArticle } = useArticle()
 
-const articles = ref([])
 // 削除処理関連
 const isModalVisible = ref(false)
 const deletableArticleId = ref(null)
-
-/**
- * 記事一覧データを取得する
- */
-const fetchArticles = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/articles')
-    if (!response.ok) {
-      throw new Error(`データの取得に失敗しました。ステータスコード: ${response.status}`)
-    }
-    articles.value = await response.json()
-  } catch (error) {
-    console.error('記事一覧の取得エラー:', error)
-    alert('記事一覧の取得に失敗しました')
-  }
-}
 
 // コンポーネントがマウントされたら記事一覧を取得
 onBeforeMount(fetchArticles)
@@ -51,25 +36,6 @@ const handleEdit = (id) => {
 const openDeleteModal = (id) => {
   deletableArticleId.value = id
   isModalVisible.value = true
-}
-
-/**
- * 削除実行
- */
-const deleteArticle = async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/articles/${deletableArticleId.value}`, {
-      method: 'DELETE',
-    })
-    if (!response.ok) {
-      throw new Error(`削除に失敗しました。ステータスコード: ${response.status}`)
-    }
-    articles.value = articles.value.filter((article) => article.id !== deletableArticleId.value)
-    deletableArticleId.value = null
-  } catch (error) {
-    console.error('記事削除エラー:', error)
-    alert('記事の削除に失敗しました')
-  }
 }
 </script>
 
@@ -118,7 +84,7 @@ const deleteArticle = async () => {
     title="記事削除"
     message="本当にこの記事を削除しますか？"
     confirmText="削除する"
-    @execute="deleteArticle"
+    @execute="deleteArticle(deletableArticleId)"
     @close="isModalVisible = false"
   />
 </template>
