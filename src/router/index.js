@@ -9,6 +9,7 @@ import ArticleListView from '@/views/articles/ArticleListView.vue'
 import ArticleDetailView from '@/views/articles/ArticleDetailView.vue'
 import ArticleNewView from '@/views/articles/ArticleNewView.vue'
 import ArticleEditView from '@/views/articles/ArticleEditView.vue'
+import { useAuthStore } from '@/stores/auth'
 
 // ルート定義
 const routes = [
@@ -63,6 +64,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+})
+
+// ナビゲーションガードの実装
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+  // ローカルストレージから認証情報を復元
+  authStore.loadAuthState()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

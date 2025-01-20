@@ -1,16 +1,40 @@
+<script setup>
+import { useAuthStore } from '@/stores/auth'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const authStore = useAuthStore()
+
+const email = ref('')
+const password = ref('')
+const errorMessage = ref('')
+const router = useRouter()
+
+const handleLogin = async () => {
+  const { isSuccess, error } = await authStore.login(email.value, password.value)
+  if (isSuccess) {
+    router.replace('/')
+  } else {
+    errorMessage.value = error
+  }
+}
+</script>
+
 <template>
   <div class="login-container">
     <div class="container login-box">
       <h1>ログイン</h1>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       <form @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="username">ユーザー名</label>
+          <label for="email">ユーザー名</label>
           <input
-            v-model.trim="username"
+            v-model.trim="email"
             type="text"
-            id="username"
-            placeholder="ユーザー名を入力"
-            required
+            id="email"
+            placeholder="メールアドレスを入力"
+            autocomplete="email"
+            require
           />
         </div>
 
@@ -21,32 +45,18 @@
             type="password"
             id="password"
             placeholder="パスワードを入力"
+            autocomplete="current-password"
             required
           />
         </div>
 
-        <button type="submit" class="button button-primary" :disabled="!username || !password">
+        <button type="submit" class="button button-primary" :disabled="!email || !password">
           ログイン
         </button>
       </form>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const username = ref('')
-const password = ref('')
-const router = useRouter()
-
-const handleLogin = () => {
-  alert(`ユーザー名: ${username.value}, パスワード: ${password.value}`)
-  // 仮の処理、後で認証処理を追加
-  router.push('/')
-}
-</script>
 
 <style scoped>
 /* 全体のコンテナ */
@@ -58,6 +68,6 @@ const handleLogin = () => {
 }
 /* ログインボックスの特定スタイル */
 .login-box {
-  min-width: 400px;
+  width: 400px;
 }
 </style>
