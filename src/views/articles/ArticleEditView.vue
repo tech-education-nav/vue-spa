@@ -41,11 +41,7 @@ const fetchArticle = async (id) => {
 
 // コンポーネントのマウント時に記事データを取得
 onMounted(() => {
-  const id = Number(route.params.id)
-  if (isNaN(id)) {
-    error.value = '不正な記事IDです'
-    return
-  }
+  const id = route.params.id
   fetchArticle(id)
 })
 
