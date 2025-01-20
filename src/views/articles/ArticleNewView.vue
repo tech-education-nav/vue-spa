@@ -2,12 +2,16 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-// フォームデータの定義
-const title = ref('')
-const content = ref('')
-const author = ref('')
-const tags = ref('')
+// ルーターインスタンス
 const router = useRouter()
+
+// 記事データの状態
+const article = ref({
+  title: '',
+  content: '',
+  author: '',
+  tags: '',
+})
 const isLoading = ref(false)
 const error = ref('')
 
@@ -16,7 +20,7 @@ const error = ref('')
  * @returns {boolean} フォームが無効かどうか
  */
 const isSubmitDisabled = computed(() => {
-  return !(title.value && content.value && author.value)
+  return !(article.value.title && article.value.content && article.value.author)
 })
 
 /**
@@ -27,12 +31,12 @@ const handleSubmit = async () => {
   if (isSubmitDisabled.value) return
 
   const newArticle = {
-    title: title.value,
-    content: content.value,
-    author: author.value,
+    title: article.value.title,
+    content: article.value.content,
+    author: article.value.author,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    tags: tags.value.split(',').map((tag) => tag.trim()), // カンマ区切りでタグを配列化
+    tags: article.value.tags.split(',').map((tag) => tag.trim()), // カンマ区切りでタグを配列化
   }
 
   isLoading.value = true
@@ -78,22 +82,22 @@ const handleBackList = () => {
       <form @submit.prevent="handleSubmit">
         <div class="form-group">
           <label for="title">タイトル</label>
-          <input id="title" v-model="title" type="text" required />
+          <input id="title" v-model="article.title" type="text" required />
         </div>
 
         <div class="form-group">
           <label for="content">本文</label>
-          <textarea id="content" v-model="content" required></textarea>
+          <textarea id="content" v-model="article.content" required></textarea>
         </div>
 
         <div class="form-group">
           <label for="author">作成者</label>
-          <input id="author" v-model="author" type="text" required />
+          <input id="author" v-model="article.author" type="text" required />
         </div>
 
         <div class="form-group">
           <label for="tags">タグ（カンマ区切り）</label>
-          <input id="tags" v-model="tags" type="text" />
+          <input id="tags" v-model="article.tags" type="text" />
         </div>
 
         <button type="submit" class="button button-primary" :disabled="isSubmitDisabled">
