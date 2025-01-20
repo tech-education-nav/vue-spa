@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-    <div class="login-box">
+    <div class="container login-box">
       <h1>ログイン</h1>
       <form @submit.prevent="handleLogin">
-        <div class="input-group">
+        <div class="form-group">
           <label for="username">ユーザー名</label>
           <input
             v-model.trim="username"
@@ -14,7 +14,7 @@
           />
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label for="password">パスワード</label>
           <input
             v-model.trim="password"
@@ -25,7 +25,7 @@
           />
         </div>
 
-        <button type="submit" class="login-button" :disabled="!username || !password">
+        <button type="submit" class="button button-primary" :disabled="!username || !password">
           ログイン
         </button>
       </form>
@@ -55,65 +55,9 @@ const handleLogin = () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: Arial, sans-serif;
 }
-
-/* ログインボックス */
+/* ログインボックスの特定スタイル */
 .login-box {
-  background: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-
-/* 見出し */
-h1 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* 入力グループ */
-.input-group {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.input-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-/* ログインボタン */
-.login-button {
-  width: 100%;
-  padding: 12px;
-  background: #4facfe;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.login-button:hover {
-  background: #00c6ff;
-}
-
-.login-button[disabled] {
-  background: #ccc;
+  min-width: 400px;
 }
 </style>

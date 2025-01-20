@@ -44,103 +44,19 @@ const goBackToList = () => {
 </script>
 
 <template>
-  <div class="article-detail-container" v-if="article">
-    <button class="back-button" @click="goBackToList">← 記事一覧に戻る</button>
-
+  <div class="container" v-if="article">
+    <button class="button button-secondary" @click="goBackToList">← 記事一覧に戻る</button>
     <h1>{{ article.title }}</h1>
-    <p class="meta-info">
+    <p class="form-group">
       <strong>作成者:</strong> {{ article.author }} | <strong>作成日:</strong>
-      {{ new Date(article.createdAt).toLocaleDateString() }}
+      {{ article.createdAt }}
     </p>
-
-    <div class="article-content">
+    <div class="form-group">
       <p>{{ article.content }}</p>
     </div>
-
-    <div class="tags">
+    <div>
       <strong>タグ:</strong>
       <span v-for="tag in article.tags" :key="tag" class="tag">{{ tag }}</span>
     </div>
   </div>
-
-  <div v-else class="not-found">
-    <p>記事が見つかりません。</p>
-    <button class="back-button" @click="goBackToList">← 記事一覧に戻る</button>
-  </div>
 </template>
-
-<style scoped>
-/* 記事詳細コンテナ */
-.article-detail-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 40px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 一覧に戻るボタン */
-.back-button {
-  background: #7f8c8d;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  margin-bottom: 20px;
-}
-
-.back-button:hover {
-  background: #636e72;
-}
-
-/* 見出し */
-h1 {
-  font-size: 32px;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-/* メタ情報 */
-.meta-info {
-  font-size: 16px;
-  color: #34495e;
-  margin-bottom: 20px;
-}
-
-/* 記事本文 */
-.article-content {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #2c3e50;
-  background: #fff;
-  padding: 20px 0;
-  border-radius: 5px;
-}
-
-/* タグスタイル */
-.tags {
-  margin-top: 20px;
-}
-
-.tag {
-  display: inline-block;
-  padding: 5px 10px;
-  margin-left: 10px;
-  background: #3498db;
-  color: white;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* 記事が見つからない場合のスタイル */
-.not-found {
-  text-align: center;
-  padding: 50px;
-  font-size: 20px;
-  color: #e74c3c;
-}
-</style>

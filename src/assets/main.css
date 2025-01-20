@@ -1,5 +1,191 @@
-@import './base.css';
-
+/* 共通スタイル */
+* {
+  box-sizing: border-box;
+}
 body {
   background-color: #f8f5f5;
+}
+/* コンテンツのコンテナ */
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* ヘッダースタイル */
+h1 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* ボタンの共通スタイル */
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+}
+.button + .button {
+  margin-left: 8px;
+}
+
+/* 各ボタンの色 */
+.button-primary {
+  background: #3498db;
+  color: white;
+}
+
+.button-primary:hover {
+  background: #2980b9;
+}
+
+.button-secondary {
+  background: #7f8c8d;
+  color: white;
+}
+
+.button-secondary:hover {
+  background: #636e72;
+}
+
+.button-success {
+  background: #27ae60;
+  color: white;
+}
+
+.button-success:hover {
+  background: #219150;
+}
+
+.button-danger {
+  background: #e74c3c;
+  color: white;
+}
+
+.button-danger:hover {
+  background: #c0392b;
+}
+.button[disabled] {
+  background: #ccc;
+  pointer-events: none;
+}
+
+/* フォームの共通スタイル */
+.form-group {
+  margin-bottom: 40px;
+}
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #34495e;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+/* テーブルスタイル */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background: #2c3e50;
+  color: white;
+  font-weight: normal;
+}
+
+/* タグスタイル */
+.tags {
+  margin-top: 20px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-left: 10px;
+  background: #3498db;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* モーダル共通スタイル */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+}
+
+/* エラーページ */
+.not-found {
+  text-align: center;
+  padding: 50px;
+  font-size: 20px;
+}
+
+/* 404ページ専用スタイル */
+.not-found {
+  max-width: 600px;
+  margin: 100px auto;
+}
+
+/* 404エラーコード */
+.error-code {
+  font-size: 100px;
+  color: #e74c3c;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* エラーメッセージ */
+.error-message {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 30px;
 }
