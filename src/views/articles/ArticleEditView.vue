@@ -6,54 +6,80 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-// 記事データ（仮のデータ）
+// 記事データの状態
 const article = ref({
   title: '',
   content: '',
   author: '',
   tags: '',
 })
+const isLoading = ref(false)
+const error = ref('')
 
-const articles = [
-  {
-    id: 1,
-    title: 'Vue.js入門',
-    content: 'Vue.jsはシンプルで強力なフレームワークです。',
-    author: '管理者',
-    tags: ['Vue', 'JavaScript'],
-  },
-  {
-    id: 2,
-    title: '状態管理の基礎',
-    content: 'Piniaを使えば状態管理が楽になります。',
-    author: 'ユーザー1',
-    tags: ['State Management', 'Pinia'],
-  },
-]
-
-// 記事データの取得
-onMounted(() => {
-  const id = Number(route.params.id)
-  const foundArticle = articles.find((a) => a.id === id)
-  if (foundArticle) {
-    article.value = {
-      ...foundArticle,
-      tags: foundArticle.tags.join(', '), // カンマ区切りに変換
+/**
+ * 記事データをAPIから取得する
+ * @param {number} id 記事ID
+ */
+const fetchArticle = async (id) => {
+  isLoading.value = true
+  try {
+    const response = await fetch(`http://localhost:3000/articles/${id}`)
+    if (!response.ok) {
+      throw new Error(`サーバーエラー: ${response.status}`)
     }
-  } else {
-    alert('記事が見つかりません')
-    router.push('/articles')
+    const data = await response.json()
+    article.value = {
+      ...data,
+      tags: data.tags.join(', '), // カンマ区切りの文字列に変換
+    }
+  } catch (err) {
+    error.value = '記事の取得に失敗しました。時間を置いて再試行してください。'
+    console.error('記事取得エラー:', err)
   }
-})
-
-// 記事の保存処理
-const saveArticle = () => {
-  console.log('編集された記事:', article.value)
-  alert('記事が更新されました')
-  router.push('/articles')
+  isLoading.value = false
 }
 
-// 一覧に戻る
+// コンポーネントのマウント時に記事データを取得
+onMounted(() => {
+  const id = Number(route.params.id)
+  if (isNaN(id)) {
+    error.value = '不正な記事IDです'
+    return
+  }
+  fetchArticle(id)
+})
+
+/**
+ * 記事を更新する
+ */
+const saveArticle = async () => {
+  isLoading.value = true
+  try {
+    const updatedArticle = {
+      ...article.value,
+      tags: article.value.tags.split(',').map((tag) => tag.trim()), // 文字列から配列に変換
+    }
+
+    const response = await fetch(`http://localhost:3000/articles/${route.params.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedArticle),
+    })
+
+    if (!response.ok) {
+      throw new Error(`サーバーエラー: ${response.status}`)
+    }
+    router.push('/articles')
+  } catch (err) {
+    error.value = '記事の更新に失敗しました。時間を置いて再試行してください。'
+    console.error('記事更新エラー:', err)
+  }
+  isLoading.value = false
+}
+
+/**
+ * 記事一覧に戻る処理
+ */
 const handleBackList = () => {
   router.push('/articles')
 }
@@ -63,28 +89,39 @@ const handleBackList = () => {
   <div class="container">
     <button class="button button-secondary" @click="handleBackList">← 記事一覧に戻る</button>
     <h1>記事編集</h1>
-    <form @submit.prevent="saveArticle">
-      <div class="form-group">
-        <label for="title">タイトル</label>
-        <input id="title" v-model="article.title" type="text" required />
-      </div>
 
-      <div class="form-group">
-        <label for="content">本文</label>
-        <textarea id="content" v-model="article.content" required></textarea>
-      </div>
+    <template v-if="isLoading">
+      <p class="loading">記事を読み込み中...</p>
+    </template>
 
-      <div class="form-group">
-        <label for="author">作成者</label>
-        <input id="author" v-model="article.author" type="text" required />
-      </div>
+    <template v-else-if="error">
+      <p class="error-message">{{ error }}</p>
+    </template>
 
-      <div class="form-group">
-        <label for="tags">タグ（カンマ区切り）</label>
-        <input id="tags" v-model="article.tags" type="text" />
-      </div>
+    <template v-else>
+      <form @submit.prevent="saveArticle">
+        <div class="form-group">
+          <label for="title">タイトル</label>
+          <input id="title" v-model="article.title" type="text" required />
+        </div>
 
-      <button type="submit" class="button button-primary">保存</button>
-    </form>
+        <div class="form-group">
+          <label for="content">本文</label>
+          <textarea id="content" v-model="article.content" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="author">作成者</label>
+          <input id="author" v-model="article.author" type="text" required />
+        </div>
+
+        <div class="form-group">
+          <label for="tags">タグ（カンマ区切り）</label>
+          <input id="tags" v-model="article.tags" type="text" />
+        </div>
+
+        <button type="submit" class="button button-primary">保存</button>
+      </form>
+    </template>
   </div>
 </template>
