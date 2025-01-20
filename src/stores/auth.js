@@ -42,7 +42,12 @@ export const useAuthStore = defineStore('auth', {
         if (matchedUser) {
           // 擬似アクセストークンの生成（Base64エンコード）
           const token = btoa(`${matchedUser.id}:${matchedUser.email}`)
-          this.user = { id: matchedUser.id, email: matchedUser.email, role: matchedUser.role }
+          this.user = {
+            id: matchedUser.id,
+            email: matchedUser.email,
+            role: matchedUser.role,
+            username: matchedUser.username,
+          }
           this.token = token
 
           // 認証情報をローカルストレージに保存
