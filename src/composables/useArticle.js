@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const API_URL = 'http://localhost:3000/articles'
@@ -17,6 +17,14 @@ export const useArticle = () => {
   const isLoading = ref(false)
   const error = ref('')
   const router = useRouter()
+
+  /**
+   * 入力値がすべて埋まっているかチェック
+   * @returns {boolean} フォームが無効かどうか
+   */
+  const isSubmitDisabled = computed(() => {
+    return !(article.value.title && article.value.content && article.value.author)
+  })
 
   /**
    * 記事一覧を取得する
@@ -68,12 +76,13 @@ export const useArticle = () => {
         ...article.value,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        tags: article.value.tags
-          ? article.value.tags
-              .split(',')
-              .map((tag) => tag.trim())
-              .filter((tag) => tag !== '')
-          : [],
+        tags:
+          article.value.tags.length > 0
+            ? article.value.tags
+                .split(',')
+                .map((tag) => tag.trim())
+                .filter((tag) => tag !== '')
+            : [],
       }
 
       const response = await fetch(API_URL, {
@@ -102,12 +111,13 @@ export const useArticle = () => {
     try {
       const updatedArticle = {
         ...article.value,
-        tags: article.value.tags
-          ? article.value.tags
-              .split(',')
-              .map((tag) => tag.trim())
-              .filter((tag) => tag !== '')
-          : [],
+        tags:
+          article.value.tags.length > 0
+            ? article.value.tags
+                .split(',')
+                .map((tag) => tag.trim())
+                .filter((tag) => tag !== '')
+            : [],
       }
 
       const response = await fetch(`${API_URL}/${id}`, {
@@ -158,6 +168,7 @@ export const useArticle = () => {
     article,
     isLoading,
     error,
+    isSubmitDisabled,
     fetchArticles,
     fetchArticle,
     createArticle,
