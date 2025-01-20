@@ -58,6 +58,7 @@ export const useArticle = () => {
       const data = await response.json()
       article.value = {
         ...data,
+        tags: Array.isArray(data.tags) && data.tags.length > 0 ? data.tags : [],
       }
     } catch (err) {
       error.value = '記事の取得に失敗しました。時間をおいて再試行してください。'
@@ -112,12 +113,14 @@ export const useArticle = () => {
       const updatedArticle = {
         ...article.value,
         tags:
-          article.value.tags.length > 0
+          typeof article.value.tags === 'string' && article.value.tags.trim() !== ''
             ? article.value.tags
                 .split(',')
                 .map((tag) => tag.trim())
                 .filter((tag) => tag !== '')
-            : [],
+            : Array.isArray(article.value.tags)
+              ? article.value.tags
+              : [],
       }
 
       const response = await fetch(`${API_URL}/${id}`, {
